@@ -1,29 +1,36 @@
 [versions]
 accompanist = "0.36.0"
-activityCompose = "1.9.3"
+activityCompose = "1.10.1"
 androidxTestJunit = "1.2.1"
+androidGradlePlugin = "8.9.2"
 appCompat = "1.7.0"
 compileSdk = "35"
-composeBom = "2024.09.03"
-compose = "1.5.7"
+composeBom = "2025.04.01"
+coverallsVersion = "2.12.2"
+detektGradlePlugin = "1.23.8"
 composeDestinations = "1.10.2"
-composeNavigation = "2.8.5"
-coreKtx = "1.15.0"
-coroutines = "1.9.0"
-dataStore = "1.1.1"
+composeNavigation = "2.8.9"
+coreKtx = "1.16.0"
+coroutines = "1.10.1"
+dataStore = "1.1.5"
 espresso = "3.6.1"
-hilt = "2.52"
+hilt = "2.56.1"
 hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
-ksp = "1.9.23-1.0.20"
-leakCanary = "2.11"
+gradleVersionsPlugin = "0.52.0"
+kotlin = "2.1.20"
+kotlinter = "5.0.1"
+ksp = "2.1.20-1.0.32"
+leakCanary = "2.14"
 lifecycle = "2.8.7"
 lint = "27.1.2"
 material = "1.12.0"
 minSdk = "21"
-mockk = "1.13.12"
+mockk = "1.13.17"
+paparazzi = "1.3.5"
 protobuf = "3.25.5"
-room = "2.6.1"
+room = "2.7.1"
+sortDependencies = "0.14"
 truth = "1.4.4"
 turbine = "1.1.0"
 windowManager = "1.3.0"
@@ -68,10 +75,20 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
-[bundles]
-accompanist = [
-    "accompanist-systemuicontroller",
-]
+# Gradle Plugins
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
+gradle-versions-plugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradleVersionsPlugin" }
 
 [plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+benmanes-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
+cash-paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
+google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
+square-sort-dependencies = { id = "com.squareup.sort-dependencies", version.ref = "sortDependencies" }

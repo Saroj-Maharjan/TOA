@@ -1,5 +1,11 @@
 name: Android UI Tests
 
+# This will cancel any in progress workflows for the same PR, if
+# multiple pushes happen in quick succession.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on: pull_request
 
 jobs:
@@ -7,12 +13,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
+      - name: Setup
+        uses: ./.github/actions/workflow_setup
 
       - name: Run Tests
         uses: reactivecircus/android-emulator-runner@v2
