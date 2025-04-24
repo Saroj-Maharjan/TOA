@@ -1,11 +1,12 @@
 import com.google.protobuf.gradle.id
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.cash.paparazzi)
+    id("dagger.hilt.android.plugin")
     id("com.google.protobuf").version("0.9.4")
 }
 
@@ -20,8 +21,6 @@ kotlin {
     }
 }
 
-apply(from = "../buildscripts/jacoco.gradle")
-apply(from = "../buildscripts/coveralls.gradle")
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -49,7 +48,7 @@ android {
             )
         }
         debug {
-            isTestCoverageEnabled = true
+            enableUnitTestCoverage = true
         }
     }
 
@@ -73,39 +72,11 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
-    }
-
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
-   testOptions {
-       unitTests.all {
-           kover {
-               isDisabled = false
-               // excludes = [
-               //         "dagger.hilt.internal.aggregatedroot.codegen.*",
-               //         "hilt_aggregated_deps.*",
-               //         "com.adammcneilly.toa.core.di.*",
-               //         "com.adammcneilly.toa.core.ui.theme.*",
-               //         ".*ComposableSingletons.*",
-               //         ".*Hilt.*",
-               //         ".*BuildConfig.*",
-               //         ".*_Factory.*",
-               // ]
-           }
-       }
-   }
-
-//    sourceSets {
-//        test {
-//            java.srcDir project(":task-api-test").file("src/commonMain/kotlin")
-//        }
-//    }
 
     applicationVariants.forEach { variant ->
         kotlin.sourceSets {
@@ -152,7 +123,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.window)
-    implementation(libs.bundles.accompanist)
+    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.destinations.animations.core)
     implementation(libs.google.protobuf.javalite)
     implementation(libs.hilt.android)
@@ -163,8 +134,8 @@ dependencies {
 
     debugImplementation(libs.leakCanary.android)
 
-    kapt(libs.hilt.compiler)
-    kaptAndroidTest(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    kspAndroidTest(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     ksp(libs.compose.destinations.ksp)
 
