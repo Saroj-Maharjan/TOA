@@ -102,7 +102,7 @@ dependencies {
     androidTestImplementation(libs.google.truth)
     androidTestImplementation(libs.hilt.android.testing)
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
