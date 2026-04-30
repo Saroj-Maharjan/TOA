@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.cash.paparazzi)
     id("dagger.hilt.android.plugin")
-    id("com.google.protobuf").version("0.9.4")
+    id("com.google.protobuf").version("0.10.0")
 }
 
 kotlin {
